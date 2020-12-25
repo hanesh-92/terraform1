@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+        stages{
+            stage('Git Checkout'){
+                steps{
+                    git branch: 'main', credentialsId: '11661cc5-8ece-4bda-9822-8a5d915374c4', url: 'https://github.com/hanesh-92/terraform1'
+                }
+            }
+            stage('Terraform Init'){
+                steps{
+                    sh 'terraform init'
+                }
+            }
+            stage('Terraform Apply'){
+                steps{
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+}
