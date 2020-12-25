@@ -1,15 +1,15 @@
 provider "aws" {
-  access_key = "AKIASADU54Z7RDKFWP7M"
-  secret_key = "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"
-  region     = "us-east-2"
+  access_key = "AKIASADU54Z7WLDHVAXG"
+  secret_key = "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"
+  region     = "us-west-2"
 }
 
 
 resource "aws_instance" "web" {
-  ami                    = "ami-09558250a3419e7d0"
+  ami                    = "ami-0a36eb8fadc976275"
   instance_type          = "t2.micro"
-  key_name               = "ohio"
-  vpc_security_group_ids = ["${aws_security_group.webSG.id}"]
+  key_name               = "orgo"
+  vpc_security_group_ids = ["${aws_security_group.webwSG.id}"]
   tags = {
     Name = "remote-exec-provisioner"
   }
@@ -22,7 +22,7 @@ resource "null_resource" "copy_execute" {
     type        = "ssh"
     host        = aws_instance.web.public_ip
     user        = "ec2-user"
-    private_key = file("ohio.pem")
+    private_key = file("orgo.pem")
   }
 
   provisioner "file" {
@@ -45,8 +45,8 @@ resource "null_resource" "copy_execute" {
 
 }
 
-resource "aws_security_group" "webSG" {
-  name        = "webSG"
+resource "aws_security_group" "webwSG" {
+  name        = "webSwG"
   description = "Allow ssh  inbound traffic"
 
   ingress {
